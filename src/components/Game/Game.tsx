@@ -18,28 +18,9 @@ const Game = () => {
         player_2: 0
     })
 
-    // const [shipTypesScores, setShipTypesScores] = useState<Record<, any>>();
-
     const handleBoxSelect = (x: number, y: number) => ()=>{
         const newPos = [x,y]
-
         setSelectedBoxes([...selectedBoxes, newPos])
-
-        //Check if hit or miss
-        let hitShipType = null;
-        otherPlayerShips.forEach((layout)=>{
-            if(layout.positions.filter(s=>(s[0]===newPos[0] && s[1]===newPos[1])).length>0){
-                hitShipType = layout.ship;
-
-            }
-        })
-
-        if(hitShipType){
-            setHitList([...hitList, {
-                pos: newPos,
-                type: hitShipType
-            }])
-        }
     }
 
 
@@ -61,8 +42,9 @@ const Game = () => {
     }, [selectedBoxes])
 
     return (
-        <div>
-            <div className="w-full border-4 border-orange-300">
+        <div className="md:p-4 lg:max-w-[46rem] lg:mx-auto">
+            <div className="lg:flex lg:flex-nowrap lg:flex-row-reverse">
+            <div className="w-full border-8 border-orange-300 lg:w-4/6">
                 {range(0, GAME_BOARD_SIZE-1).map((j)=>(
                     <div className="flex flex-nowrap " key={j}>
                         {range(0, GAME_BOARD_SIZE-1).map((i)=> {
@@ -74,20 +56,20 @@ const Game = () => {
                 ))}
             </div>
 
-            <div>
-                <div className="flex flex-nowrap">
-                    <div className="bg-orange-300 flex flex-col items-center space-y-1 w-1/2 py-4">
+            <div className="md:flex md:mt-6 lg:block lg:mt-0 lg:w-2/6 lg:pr-4">
+                <div className="flex flex-nowrap md:w-4/12 lg:w-full">
+                    <div className="bg-orange-300 flex flex-col justify-center items-center space-y-1 w-1/2 py-4">
                         <p className="text-2xl font-bold">{String(scores.player_1).padStart(2, '0')}</p>
                         <div className="h-px w-full bg-black max-w-[70%]"></div>
                         <p className="font-bold">player 1</p>
                     </div>
-                    <div className="bg-emerald-300 flex flex-col items-center space-y-1 w-1/2 py-4">
+                    <div className="bg-emerald-300 flex flex-col justify-center items-center space-y-1 w-1/2 py-4">
                         <p className="text-2xl font-bold">{String(scores.player_2).padStart(2, '0')}</p>
                         <div className="h-px w-full bg-black max-w-[90%]"></div>
                         <p className="font-bold">player 2</p>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="grid grid-cols-2 gap-4 mt-6 md:mt-0 md:w-8/12 md:pl-5 lg:w-full lg:pl-0 lg:grid-cols-1 lg:mt-4">
                     {_map(shipTypes, (type, index)=>{
                         const numberOfHits = hitList.filter((s)=>s.type==index ).length
                         return(
@@ -106,6 +88,7 @@ const Game = () => {
                 </div>
 
             </div>
+        </div>
         </div>
     )
 }
