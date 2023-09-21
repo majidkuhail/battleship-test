@@ -98,10 +98,10 @@ const Game = () => {
                       return (
                         <span
                           key={s}
-                          className={`rounded-full border border-gray-500 w-3 h-3 ${
-                            numberOfHits >= s ? 'bg-red-500 border-red-500' : ''
-                          }`}
-                        ></span>
+
+                        >
+                             <img className="w-3 h-3" src={numberOfHits >= s ? '/assets/Hit-small.png':'/assets/Miss-small.png'}/>
+                        </span>
                       )
                     })}
                   </div>
