@@ -47,10 +47,10 @@ const Game = () => {
       player_2: selectedBoxes.length - hits.length,
     })
 
-    //TODO: calculate if won and show alert
+    //calculate if won and show alert
     let completedShips = 0;
     _map(shipTypes, (type, index)=>{
-      if(type.size === hitList.filter((h)=>h.type === index).length){
+      if(type.size === hits.filter((h)=>h.type === index).length){
         completedShips++;
       }
     })
