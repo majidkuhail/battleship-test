@@ -1,12 +1,12 @@
-export type Position = number[];
+export type Position = number[]
 export type ShipLayout = {
-    ship: string,
-    positions: Array<number[]>
+  ship: string
+  positions: Array<number[]>
 }
 
 export type BoardBoxProps = {
-    position: Position,
-    onSelect: ()=>void
-    isSelected?: boolean
-    isHit?: boolean
+  position: Position
+  onSelect: () => void
+  isSelected?: boolean
+  isHit?: boolean
 }
