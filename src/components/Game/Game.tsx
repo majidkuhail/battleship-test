@@ -21,8 +21,11 @@ const Game = () => {
     player_1: 0,
     player_2: 0,
   })
+  // Use to show alert when won
+  const [hasWon, setHasWon] = useState(false)
 
   const handleBoxSelect = (x: number, y: number) => () => {
+    if(hasWon) return
     // Add box to selected boxes
     setSelectedBoxes([...selectedBoxes, [x, y]])
   }
@@ -43,6 +46,18 @@ const Game = () => {
       player_1: hits.length,
       player_2: selectedBoxes.length - hits.length,
     })
+
+    //TODO: calculate if won and show alert
+    let completedShips = 0;
+    _map(shipTypes, (type, index)=>{
+      if(type.size === hitList.filter((h)=>h.type === index).length){
+        completedShips++;
+      }
+    })
+    if(completedShips === Object.keys(shipTypes).length){
+      setHasWon(true)
+    }
+    console.log({completedShips, sh: Object.keys(shipTypes).length})
   }, [selectedBoxes])
 
   return (
@@ -111,6 +126,11 @@ const Game = () => {
           </div>
         </div>
       </div>
+      {hasWon && (
+          <div className="shadow-xl bg-green-500   rounded-xl p-5 text-2xl fixed top-20 left-1/2 -translate-x-1/2">
+            <p>You sunk them all!</p>
+          </div>
+      )}
     </div>
   )
 }
